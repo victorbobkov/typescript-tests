@@ -1,19 +1,26 @@
-function add(n1: number, n2: number) {
-    return n1 + n2
+// The unknown Type, can be stored any input
+// unknown is a bit more restrictive than any
+
+let userInput: unknown
+let userName: string
+userInput = 5
+userInput = 'Max'
+
+// wouldn't work without if check
+if (typeof userInput === 'string') {
+   userName = userInput
 }
 
-// print result type is void, means function doesn't return anything, it doesn't have a return statement
-function printResult(num: number) {
-    console.log('Result '+ num)
+// unknown is a better choice over any, to have at least some type checking
+// if possible something like union type is better than unknown
+
+// never is another type functions can return
+
+// this function never produces a value and never returns anything
+function generateError(message: string, code: number): never {
+   throw {
+      message: message, errorCode: code
+   }
 }
 
-printResult(add(5, 12))
-
-// Functions as Types
-let combineValues: (a: number, b: number) => number
-
-combineValues = add
-// combineValues = printResult
-// combineValues = 5
-
-console.log(combineValues(8,8))
+generateError('An error occured!', 500)
